@@ -83,6 +83,6 @@ curl -i -XPUT \
     ${SELECTEL_FILE_UPLOAD_URL}${FILE_NAME} \
     -H "X-Auth-Token: $SELECTEL_ACCESS_TOKEN" \
     -H "X-Delete-After: $SELECTEL_DELETE_AFTER" \
-    -T dump.sql.gz || exit 2
+    -T dump.sql.gz
 
 echo "SQL backup uploaded successfully"
