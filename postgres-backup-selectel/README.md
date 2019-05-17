@@ -11,13 +11,13 @@ $ docker run -e SELECTEL_USER=user_name -e SELECTEL_PASSWORD=passwd -e SELECTEL_
 
 Docker Compose:
 ```yaml
-postgres:
+db:
   image: postgres
   environment:
     POSTGRES_USER: user
     POSTGRES_PASSWORD: password
 
-pgbackups3:
+pgbackups_selectel:
   image: redchiliorg/postgres-backup-selectel
   links:
     - postgres
@@ -27,6 +27,7 @@ pgbackups3:
     SELECTEL_PASSWORD: password
     SELECTEL_CONTAINER_NAME: conatainer_name
     SELECTEL_DELETE_AFTER: 86400  # 60 * 60 * 24 = 1d (in seconds)
+    POSTGRES_HOST: db
     POSTGRES_DATABASE: dbname
     POSTGRES_USER: user
     POSTGRES_PASSWORD: password
