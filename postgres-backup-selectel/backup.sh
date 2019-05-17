@@ -19,8 +19,8 @@ if [[ "${SELECTEL_CONTAINER_NAME}" = "**None**" ]]; then
   exit 1
 fi
 
-if [[ "${SELECTEL_CONTAINER_ID}" = "**None**" ]]; then
-  echo "You need to set the SELECTEL_CONTAINER_ID environment variable."
+if [[ "${SELECTEL_USER_ID}" = "**None**" ]]; then
+  echo "You need to set the SELECTEL_USER_ID environment variable."
   exit 1
 fi
 
@@ -63,7 +63,7 @@ echo "Creating dump of ${POSTGRES_DATABASE} database from ${POSTGRES_HOST}..."
 
 pg_dump $POSTGRES_HOST_OPTS $POSTGRES_DATABASE | gzip > dump.sql.gz
 export FILE_NAME="${POSTGRES_DATABASE}_$(date +"%Y-%m-%dT%H:%M:%SZ").sql.gz"
-export SELECTEL_FILE_UPLOAD_URL="https://api.selcdn.ru/v1/$SELECTEL_CONTAINER_ID/$SELECTEL_CONTAINER_NAME/"
+export SELECTEL_FILE_UPLOAD_URL="https://api.selcdn.ru/v1/SEL_$SELECTEL_USER_ID/$SELECTEL_CONTAINER_NAME/"
 
 echo "Obtain selectel access token"
 
@@ -83,6 +83,6 @@ curl -i -XPUT \
     ${SELECTEL_FILE_UPLOAD_URL}${FILE_NAME} \
     -H "X-Auth-Token: $SELECTEL_ACCESS_TOKEN" \
     -H "X-Delete-After: $SELECTEL_DELETE_AFTER" \
-    -T "dump.sql.gz" || exit 2
+    -T dump.sql.gz || exit 2
 
 echo "SQL backup uploaded successfully"
