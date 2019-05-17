@@ -80,10 +80,9 @@ echo "Selectel access token is - $SELECTEL_ACCESS_TOKEN"
 echo "Uploading dump to $SELECTEL_CONTAINER_NAME (${SELECTEL_FILE_UPLOAD_URL}${FILE_NAME})"
 
 # upload to selectel
-curl -i -XPUT \
-    ${SELECTEL_FILE_UPLOAD_URL}${FILE_NAME} \
+curl -i -XPUT ${SELECTEL_FILE_UPLOAD_URL}${FILE_NAME} \
     -H "X-Auth-Token: $SELECTEL_ACCESS_TOKEN" \
     -H "X-Delete-After: $SELECTEL_DELETE_AFTER" \
-    -T run.sh
+    -T dump.sql.gz
 
 echo "SQL backup uploaded successfully"
