@@ -26,7 +26,7 @@ pgbackups_selectel:
     SELECTEL_USER: user_name
     SELECTEL_PASSWORD: password
     SELECTEL_CONTAINER_NAME: conatainer_name
-    SELECTEL_CONTAINER_ID: sel_000000  # 000000 - should be replaced by your id
+    SELECTEL_USER_ID: xxxxxx  # it's the user's account number.
     SELECTEL_DELETE_AFTER: 86400  # 60 * 60 * 24 = 1d (in seconds)
     POSTGRES_HOST: db
     POSTGRES_DATABASE: dbname
