@@ -76,7 +76,7 @@ export SELECTEL_ACCESS_TOKEN=$(
 )
 
 echo "Selectel access token is - $SELECTEL_ACCESS_TOKEN"
-echo "Uploading dump to $SELECTEL_CONTAINER_NAME"
+echo "Uploading dump to $SELECTEL_CONTAINER_NAME (${SELECTEL_FILE_UPLOAD_URL}${FILE_NAME})"
 
 # upload to selectel
 curl -i -XPUT \
