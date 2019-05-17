@@ -6,7 +6,7 @@ Backup PostgresSQL to Selectel Cloud Storage (supports periodic backups)
 
 Docker:
 ```sh
-$ docker run -e SELECTEL_USER=user_name -e SELECTEL_PASSWORD=passwd -e SELECTEL_CONTAINER_NAME=container -e SELECTEL_DELETE_AFTER=86400 -e POSTGRES_DATABASE=dbname -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_HOST=localhost dodone/postgres-backup-selectel
+$ docker run -e SELECTEL_USER=user_name -e SELECTEL_PASSWORD=passwd -e SELECTEL_CONTAINER_NAME=container -e SELECTEL_DELETE_AFTER=86400 -e POSTGRES_DATABASE=dbname -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_HOST=localhost redchiliorg/postgres-backup-selectel
 ```
 
 Docker Compose:
@@ -18,7 +18,7 @@ postgres:
     POSTGRES_PASSWORD: password
 
 pgbackups3:
-  image: dodone/postgres-backup-selectel
+  image: redchiliorg/postgres-backup-selectel
   links:
     - postgres
   environment:
