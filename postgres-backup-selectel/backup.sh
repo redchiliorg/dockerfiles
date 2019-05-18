@@ -2,6 +2,7 @@
 
 set -e
 set -o pipefail
+set -x
 
 # Selectel settings
 if [[ "${SELECTEL_USER}" = "**None**" ]]; then
