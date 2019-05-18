@@ -2,7 +2,6 @@
 
 set -e
 set -o pipefail
-set -x
 
 # Selectel settings
 if [[ "${SELECTEL_USER}" = "**None**" ]]; then
@@ -63,7 +62,7 @@ POSTGRES_HOST_OPTS="-h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER $POSTG
 echo "Creating dump of ${POSTGRES_DATABASE} database from ${POSTGRES_HOST}..."
 
 pg_dump $POSTGRES_HOST_OPTS $POSTGRES_DATABASE | gzip > dump.sql.gz
-ls -al
+
 export FILE_NAME="${POSTGRES_DATABASE}_$(date +"%Y-%m-%dT%H:%M:%SZ").sql.gz"
 export SELECTEL_FILE_UPLOAD_URL="https://api.selcdn.ru/v1/SEL_$SELECTEL_USER_ID/$SELECTEL_CONTAINER_NAME/"
 
@@ -81,6 +80,10 @@ echo "Selectel access token is - $SELECTEL_ACCESS_TOKEN"
 echo "Uploading dump to $SELECTEL_CONTAINER_NAME (${SELECTEL_FILE_UPLOAD_URL}${FILE_NAME})"
 
 # upload to selectel
-curl -XPUT https://api.selcdn.ru/v1/SEL_64924/testbox-backup/pike_2019-05-17T21:00:54Z.sql.gz -H "X-Auth-Token: $SELECTEL_ACCESS_TOKEN" -H "X-Delete-After: $SELECTEL_DELETE_AFTER" -T dump.sql.gz
+curl -i -XPUT \
+    ${SELECTEL_FILE_UPLOAD_URL}${FILE_NAME} \
+    -H "X-Auth-Token: ${SELECTEL_ACCESS_TOKEN}" \
+    -H "X-Delete-After: ${SELECTEL_DELETE_AFTER}" \
+    -T dump.sql.gz
 
 echo "SQL backup uploaded successfully"
