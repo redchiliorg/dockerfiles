@@ -82,7 +82,7 @@ echo "Uploading dump to $SELECTEL_CONTAINER_NAME (${SELECTEL_FILE_UPLOAD_URL}${F
 
 # upload to selectel
 curl -i -XPUT \
-    ${SELECTEL_FILE_UPLOAD_URL}${FILE_NAME} \
+    "${SELECTEL_FILE_UPLOAD_URL}${FILE_NAME}" \
     -H "X-Auth-Token: ${SELECTEL_ACCESS_TOKEN}" \
     -H "X-Delete-After: ${SELECTEL_DELETE_AFTER}" \
     -T dump.sql.gz
