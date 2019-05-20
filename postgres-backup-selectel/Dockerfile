@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3.8
 LABEL maintainer="redchiliorg"
 
 ADD install.sh install.sh
