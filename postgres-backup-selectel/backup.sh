@@ -81,6 +81,6 @@ echo "Uploading dump to $SELECTEL_CONTAINER_NAME (${SELECTEL_FILE_UPLOAD_URL})"
 
 # upload to selectel
 echo -e "Upload command is:\ncurl -i -XPUT \"${SELECTEL_FILE_UPLOAD_URL}\"\n -H \"X-Auth-Token: $SELECTEL_ACCESS_TOKEN\"\n -H \"X-Delete-After: $SELECTEL_DELETE_AFTER\"\n -T $FILE_NAME"
-curl -i -XPUT $SELECTEL_FILE_UPLOAD_URL -H "X-Auth-Token: $SELECTEL_ACCESS_TOKEN" -H "X-Delete-After: $SELECTEL_DELETE_AFTER" -T run.sh
+curl -v -i -XPUT $SELECTEL_FILE_UPLOAD_URL -H "X-Auth-Token: $SELECTEL_ACCESS_TOKEN" -H "X-Delete-After: $SELECTEL_DELETE_AFTER" -T run.sh
 
 echo "SQL backup uploaded successfully"
