@@ -56,7 +56,7 @@ fi
 
 # env vars needed for aws tools
 export PGPASSWORD=$POSTGRES_PASSWORD
-#export FILE_NAME="${POSTGRES_DATABASE}_$(date +"%Y-%m-%dT%H:%M:%SZ").sql.gz"
+export FILE_NAME="${POSTGRES_DATABASE}_$(date +"%Y-%m-%dT%H:%M:%SZ").sql.gz"
 
 POSTGRES_HOST_OPTS="-h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER $POSTGRES_EXTRA_OPTS"
 
@@ -80,7 +80,7 @@ echo "Selectel access token is - $SELECTEL_ACCESS_TOKEN"
 echo "Uploading dump to $SELECTEL_CONTAINER_NAME (${SELECTEL_FILE_UPLOAD_URL})"
 
 # upload to selectel
-echo "Upload command is – curl -i -XPUT \"${SELECTEL_FILE_UPLOAD_URL}\" -H \"X-Auth-Token: $SELECTEL_ACCESS_TOKEN\" -H \"X-Delete-After: $SELECTEL_DELETE_AFTER\" -T $FILE_NAME"
+echo -e "Upload command is:\ncurl -i -XPUT \"${SELECTEL_FILE_UPLOAD_URL}\"\n -H \"X-Auth-Token: $SELECTEL_ACCESS_TOKEN\"\n -H \"X-Delete-After: $SELECTEL_DELETE_AFTER\"\n -T $FILE_NAME"
 curl -i -XPUT $SELECTEL_FILE_UPLOAD_URL -H "X-Auth-Token: $SELECTEL_ACCESS_TOKEN" -H "X-Delete-After: $SELECTEL_DELETE_AFTER" -T dump.sql.gz
 
 echo "SQL backup uploaded successfully"
