@@ -2,7 +2,6 @@
 
 set -e
 set -o pipefail
-set -x
 
 # Selectel settings
 if [[ "${SELECTEL_USER}" = "**None**" ]]; then
@@ -81,10 +80,7 @@ echo "Selectel access token is - $SELECTEL_ACCESS_TOKEN"
 echo "Uploading dump to $SELECTEL_CONTAINER_NAME (${SELECTEL_FILE_UPLOAD_URL})"
 
 # upload to selectel
-curl -i -XPUT \
-    "${SELECTEL_FILE_UPLOAD_URL}" \
-    -H "X-Auth-Token: ${SELECTEL_ACCESS_TOKEN}" \
-    -H "X-Delete-After: ${SELECTEL_DELETE_AFTER}" \
-    -T $FILE_NAME
+echo "Upload command is – curl -i -XPUT \"${SELECTEL_FILE_UPLOAD_URL}\" -H \"X-Auth-Token: $SELECTEL_ACCESS_TOKEN\" -H \"X-Delete-After: $SELECTEL_DELETE_AFTER\" -T $FILE_NAME"
+curl -i -XPUT $SELECTEL_FILE_UPLOAD_URL -H "X-Auth-Token: $SELECTEL_ACCESS_TOKEN" -H "X-Delete-After: $SELECTEL_DELETE_AFTER" -T $FILE_NAME
 
 echo "SQL backup uploaded successfully"
