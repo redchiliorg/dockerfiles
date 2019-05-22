@@ -62,7 +62,7 @@ POSTGRES_HOST_OPTS="-h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER $POSTG
 
 echo "Creating dump of ${POSTGRES_DATABASE} database from ${POSTGRES_HOST}..."
 
-pg_dump $POSTGRES_HOST_OPTS $POSTGRES_DATABASE | gzip > dump.sql.gz
+pg_dump $POSTGRES_HOST_OPTS $POSTGRES_DATABASE | gzip > $FILE_NAME
 
 export SELECTEL_FILE_UPLOAD_URL="https://api.selcdn.ru/v1/SEL_$SELECTEL_USER_ID/$SELECTEL_CONTAINER_NAME/"
 
@@ -73,7 +73,7 @@ export SELECTEL_ACCESS_TOKEN=$(
     curl -i https://api.selcdn.ru/auth/v1.0 \
         -H "X-Auth-User: $SELECTEL_USER" \
         -H "X-Auth-Key: $SELECTEL_PASSWORD" \
-    | grep -i 'x-auth-token:' | awk -F ': ' '{ print $2 }'
+    | grep -i 'x-auth-token:' | awk -F ': ' '{ print $2 }' | sed 's/\r//g'
 )
 
 echo "Selectel access token is - $SELECTEL_ACCESS_TOKEN"
@@ -81,6 +81,9 @@ echo "Uploading dump to $SELECTEL_CONTAINER_NAME (${SELECTEL_FILE_UPLOAD_URL})"
 
 # upload to selectel
 echo -e "Upload command is:\ncurl -i -XPUT \"${SELECTEL_FILE_UPLOAD_URL}\"\n -H \"X-Auth-Token: $SELECTEL_ACCESS_TOKEN\"\n -H \"X-Delete-After: $SELECTEL_DELETE_AFTER\"\n -T $FILE_NAME"
-curl -v -i -XPUT $SELECTEL_FILE_UPLOAD_URL -H "X-Auth-Token: $SELECTEL_ACCESS_TOKEN" -H "X-Delete-After: $SELECTEL_DELETE_AFTER" -T run.sh
+curl -i -XPUT $SELECTEL_FILE_UPLOAD_URL \
+    -H "X-Auth-Token: $SELECTEL_ACCESS_TOKEN" \
+    -H "X-Delete-After: $SELECTEL_DELETE_AFTER" \
+    -T $FILE_NAME
 
 echo "SQL backup uploaded successfully"
