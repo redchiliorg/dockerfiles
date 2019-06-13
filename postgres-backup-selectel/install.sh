@@ -7,7 +7,7 @@ set -e
 apk update
 
 # install pg_dump, curl
-apk add postgresql curl
+apk add postgresql-client curl
 
 # install go-cron
 curl -L --insecure https://github.com/odise/go-cron/releases/download/v0.0.6/go-cron-linux.gz | zcat > /usr/local/bin/go-cron
